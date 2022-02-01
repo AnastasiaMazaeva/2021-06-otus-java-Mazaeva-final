@@ -1,0 +1,55 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'com.github.johnrengelman.shadow' version '6.1.0' apply false
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+allprojects {
+    group "ru.otus"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    apply plugin: "io.spring.dependency-management"
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.5.2")
+        }
+        dependencies {
+            dependency("com.fasterxml.jackson.core:jackson-databind:$Versions.jackson")
+            dependency("javax.json:javax.json-api:$Versions.javax")
+            dependency("org.testcontainers:junit-jupiter:${Versions.testcontainers}")
+            dependency("org.testcontainers:postgresql:${Versions.testcontainers}")
+            dependency("org.webjars:bootstrap:${Versions.bootstrap}")
+            dependency("org.webjars:jquery:${Versions.jquery}")
+
+            dependency("org.testcontainers:junit-jupiter:${Versions.testcontainers}")
+            dependency("org.testcontainers:postgresql:${Versions.testcontainers}")
+
+            dependency("org.flywaydb:flyway-core:$Versions.flyway")
+            dependency("org.postgresql:postgresql:$Versions.postgresql")
+            dependency("org.mapstruct:mapstruct:$Versions.mapstruct")
+        }
+    }
+
+
+    configurations.all {
+        resolutionStrategy {
+            failOnVersionConflict()
+        }
+        resolutionStrategy {
+            force("net.java.dev.jna:jna:5.8.0")
+        }
+    }
+}

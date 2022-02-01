@@ -1,0 +1,17 @@
+minio:
+  url: http://bsd-dev-minio01.esphere.local:9000
+  key: epl-user
+  secretkey: Thohghoo8T
+  bucketname: epl
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/demoDB
+    username: usr
+    password: pwd
+  flyway:
+    enabled: true
+server:
+  port: 8081
+logging:
+  level:
+    log4j.category.org.springframework.jdbc.core : TRACE
