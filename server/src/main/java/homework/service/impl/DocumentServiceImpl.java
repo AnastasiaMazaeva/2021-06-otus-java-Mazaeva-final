@@ -39,8 +39,10 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    @Transactional(rollbackFor = StorageException.class)
     public void delete(Long documentId) {
         service.delete(documentId);
+        storage.delete(documentId);
     }
 
 }
