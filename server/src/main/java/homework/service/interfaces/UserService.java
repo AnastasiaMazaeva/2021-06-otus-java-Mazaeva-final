@@ -7,9 +7,10 @@ import java.util.Optional;
 
 public interface UserService {
 
-    User save(User user);
-    void delete(User user);
-    void closeAccount(User user);
+    void save(User user);
+
+    void toggleActive(Long userId);
+
     Optional<User> findByUsername(String username);
 
     List<User> findAllExcept(String principal);

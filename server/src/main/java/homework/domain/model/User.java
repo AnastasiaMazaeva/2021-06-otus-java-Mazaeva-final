@@ -17,8 +17,7 @@ public class User {
     private String login;
     private String password;
     private Boolean isActive = true;
-    private Boolean isOpen = true;
-    private Role role;
+    private Role role = Role.ROLE_USER;
     @MappedCollection(idColumn = "owner", keyColumn = "owner")
     private Set<Document> documents = new HashSet<>();
     @MappedCollection(idColumn = "receiver", keyColumn = "receiver")

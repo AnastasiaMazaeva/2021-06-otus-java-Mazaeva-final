@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'io.franzbecker.gradle-lombok'
+    id 'io.spring.dependency-management'
+    id 'org.springframework.boot'
 }
 
 group 'org.example'
@@ -15,8 +17,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.6'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.6'
 
     implementation 'ch.qos.logback:logback-classic'
     implementation 'org.flywaydb:flyway-core'
@@ -31,4 +33,6 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
 
     implementation 'org.postgresql:postgresql'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
 }

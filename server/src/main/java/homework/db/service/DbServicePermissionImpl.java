@@ -23,7 +23,7 @@ public class DbServicePermissionImpl implements DbServicePermission {
             Optional<Permission> permission = permissionRepository.findPermissionWithUserAndDocument(receiverId, documentId);
             if (permission.isEmpty()) {
                 permissionRepository.save(documentId, receiverId);
-            };
+            }
         });
     }
 

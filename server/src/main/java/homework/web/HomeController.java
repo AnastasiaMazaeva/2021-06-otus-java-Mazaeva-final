@@ -47,7 +47,7 @@ public class HomeController {
         Optional<User> dbUser = userService.findByUsername(user.getLogin());
         if (dbUser.isEmpty()) {
             userService.save(user);
-            return "home";
+            return "redirect:login";
         } else {
             return "redirect:register?error";
         }

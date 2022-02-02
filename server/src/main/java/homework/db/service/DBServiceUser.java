@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface DBServiceUser {
 
-    User save(User client);
-
-    List<User> findAll();
+    void save(User client);
 
     Optional<User> findByLogin(String username);
 
     List<User> findAllExcept(String principal);
+
+    void changeStatus(Long userId);
 }

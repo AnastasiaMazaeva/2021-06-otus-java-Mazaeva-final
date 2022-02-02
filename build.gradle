@@ -45,6 +45,7 @@ allprojects {
             dependency("org.mapstruct:mapstruct:$Versions.mapstruct")
 
             dependency( 'io.minio:minio:7.1.4')
+            dependency('org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE')
         }
     }
 

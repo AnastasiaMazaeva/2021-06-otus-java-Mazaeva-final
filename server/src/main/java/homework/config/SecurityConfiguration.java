@@ -4,16 +4,18 @@ import homework.auth.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@EnableWebSecurity
+@Order(1)
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfiguration  extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService detailsService;
 
@@ -21,7 +23,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter impleme
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/register").permitAll()
+                        .antMatchers("/register").not().fullyAuthenticated()
                         .regexMatchers(".*css").permitAll()
                         .anyRequest().authenticated())
                 .formLogin()
@@ -31,14 +33,6 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter impleme
                 .logout()
                 .permitAll();
     }
-
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/register").setViewName("register");
-    }
-
 
     @Override
     public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {

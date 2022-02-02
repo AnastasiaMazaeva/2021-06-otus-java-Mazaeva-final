@@ -11,9 +11,8 @@
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
     <style type="text/css">
         * {margin: 0; padding: 0;}
-        #documents, #users {display: inline-block; *display: inline; font-size: 12px;}
-        #documents {height: 100%; width: 72%;}
-        #users {height: 50%; width: 27%;}
+        #documents, #users {display: inline-block;}
+
         #userId, #documentId, #permissionDocumentId {display: none}
     </style>
     <!--link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
@@ -25,7 +24,8 @@
 <div class="welcome">
 <h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!
 </h1>
-<span><a href="/logout" th:href="@{/logout}">Logout?</a></span>
+    <span><a href="/logout" th:href="@{/logout}">Logout?</a></span>
+    <div  th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><span ><a href="/admin" th:href="@{/admin}">admin mode</a></span></div>
 </div>
 <div class="wrapper">
     <div class="tabs">
@@ -105,7 +105,7 @@
                                     <td th:text="${permission.ownerName}"></td>
                                     <td th:text="${permission.documentName}"></td>
                                     <td th:text="${permission.documentDescription}"></td>
-                                    <td><a th:href="@{/documents/download/(documentId=${permission.documentId})}" class="btn btn-primary"><i class="fas fa-download"></i></a></td>
+                                    <td><a th:href="@{/documents/download/{documentId}(documentId=${permission.documentId})}" class="btn btn-primary"><i class="fas fa-download"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -18,20 +18,14 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User save(User user) {
+    public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return service.save(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        //service.delete(user);
-    }
-
-    @Override
-    public void closeAccount(User user) {
-        user.setIsOpen(false);
         service.save(user);
+    }
+
+    @Override
+    public void toggleActive(Long userId) {
+        service.changeStatus(userId);
     }
 
     @Override

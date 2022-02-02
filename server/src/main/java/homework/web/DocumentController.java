@@ -20,13 +20,12 @@ public class DocumentController {
 
     private final DocumentService documentService;
 
-    @GetMapping(value = "download/{documentId}", produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
+    @GetMapping(value = "/download/{documentId}", produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
     public void download(@PathVariable Long documentId, HttpServletResponse response) {
         Document document = documentService.findById(documentId);
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename = " + document.getName();
         response.setHeader(headerKey, headerValue);
-        //response.setContentType("application/octet-stream");
         StreamUtils.copy(documentService.download(documentId), response);
     }
 

@@ -20,19 +20,11 @@ public class DbServiceUserImpl implements DBServiceUser {
     private final UserRepository userRepository;
 
     @Override
-    public User save(User client) {
-        return transactionManager.doInTransaction(() -> {
+    public void save(User client) {
+        transactionManager.callInTransaction(() -> {
             var savedClient = userRepository.save(client);
             log.info("saved client: {}", savedClient);
-            return savedClient;
         });
-    }
-
-    @Override
-    public List<User> findAll() {
-        var users = userRepository.findAll();
-        log.info("clientList:{}", users);
-        return users;
     }
 
     @Override
@@ -43,6 +35,11 @@ public class DbServiceUserImpl implements DBServiceUser {
     @Override
     public List<User> findAllExcept(String principal) {
         return userRepository.findAllExcept(principal);
+    }
+
+    @Override
+    public void changeStatus(Long userId) {
+        transactionManager.callInTransaction(() -> userRepository.changeStatus(userId));
     }
 
 }
