@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PermissionRepository extends CrudRepository<Permission, Long> {
@@ -24,4 +25,7 @@ public interface PermissionRepository extends CrudRepository<Permission, Long> {
             + "inner join dat_user u on d.owner = u.id "
             + "where p.receiver = :userId ", rowMapperClass = PermissionRowMapper.class)
     List<PermissionRepresentation> findPermissionsWithUserId(@Param("userId") Long userId);
+
+    @Query("select p.* from permission p where p.document = :documentId and p.receiver = :userId")
+    Optional<Permission> findPermissionWithUserAndDocument(@Param("userId") Long userId, @Param("documentId") Long documentId);
 }

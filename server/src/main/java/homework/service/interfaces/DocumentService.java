@@ -2,9 +2,15 @@ package homework.service.interfaces;
 
 import homework.domain.model.Document;
 
+import java.io.InputStream;
+
 public interface DocumentService {
 
-    Document findByPermission(Long permissionId);
+    void save(Document document, InputStream inputStream);
 
-    void save(Document document);
+    InputStream download(Long documentId);
+
+    Document findById(Long documentId);
+
+    void delete(Long documentId);
 }

@@ -15,7 +15,8 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @PostMapping("document/{documentId}/share/{userId}")
-    public void share(@PathVariable Long documentId, @PathVariable Long userId) {
+    public String share(@PathVariable Long documentId, @PathVariable Long userId) {
         permissionService.permit(documentId, userId);
+        return "home";
     }
 }

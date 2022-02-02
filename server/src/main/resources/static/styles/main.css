@@ -1,5 +1,5 @@
 .selected {
-    color: #0066bb;
+    color: brown;
 }
 table {
     overflow: auto;
@@ -11,6 +11,14 @@ table thead th {
 }
 table thead td {
     position: sticky; left: 0;
+}
+h2 {
+    text-align: center;
+    width: 100%;
+}
+table tbody {
+    color: #415D92;
+    background-color: #DDE4F0;
 }
 .wrapper {
     background-color: #C2DBDB;
@@ -43,12 +51,6 @@ h1 {
 th {
     background-color: #415D92;
     color: #DDE4F0;
-}
-
-td {
-    color: #eee;
-    font-weight: bold;
-    font-size: 12pt;
 }
 
 .tab-header {

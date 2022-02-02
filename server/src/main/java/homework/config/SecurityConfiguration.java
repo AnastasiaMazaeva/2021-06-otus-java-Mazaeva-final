@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//@Order()
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration  extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
@@ -32,7 +31,6 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter impleme
                 .logout()
                 .permitAll();
     }
-
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");

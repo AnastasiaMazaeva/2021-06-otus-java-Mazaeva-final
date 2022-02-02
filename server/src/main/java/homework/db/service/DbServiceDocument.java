@@ -4,7 +4,9 @@ import homework.domain.model.Document;
 
 public interface DbServiceDocument {
 
-    Document findByPermission(Long permissionId);
+    Document save(Document document);
 
-    void save(Document document);
+    Document findById(Long documentId);
+
+    void delete(Long documentId);
 }
