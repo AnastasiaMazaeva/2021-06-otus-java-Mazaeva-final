@@ -16,7 +16,8 @@ create table dat_user (
     role varchar(50),
     password varchar(255),
     is_active boolean,
-    is_open boolean
+    is_open boolean,
+    token uuid
 
 );
 

@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.6'
+    implementation 'commons-codec:commons-codec:1.15'
 
     implementation 'ch.qos.logback:logback-classic'
     implementation 'org.flywaydb:flyway-core'

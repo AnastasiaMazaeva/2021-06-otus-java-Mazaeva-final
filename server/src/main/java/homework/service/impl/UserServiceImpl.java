@@ -10,6 +10,7 @@ import storage.service.Storage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +39,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllExcept(String principal) {
         return service.findAllExcept(principal);
+    }
+
+    @Override
+    public UUID getToken(String principal) {
+        return service.getToken(principal);
+    }
+
+    @Override
+    public User findByToken(UUID token) {
+        return service.findByToken(token);
     }
 
 }

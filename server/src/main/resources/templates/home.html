@@ -23,7 +23,8 @@
 <h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!
 </h1>
     <span><a href="/logout" th:href="@{/logout}">Logout?</a></span>
-    <div  th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><span ><a href="/admin" th:href="@{/admin}">admin mode</a></span></div>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a href="/admin" th:href="@{/admin}">admin mode</a></div>
+    <div th:if="${#authorization.expression('hasRole(''USER'')')}">Ваш токен <span th:text="${token}"></span></div>
 </div>
 <div class="wrapper">
     <input class="radio" id="one" name="group" type="radio" checked>

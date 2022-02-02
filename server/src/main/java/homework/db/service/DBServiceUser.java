@@ -5,6 +5,7 @@ import homework.domain.model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface DBServiceUser {
 
@@ -15,4 +16,8 @@ public interface DBServiceUser {
     List<User> findAllExcept(String principal);
 
     void changeStatus(Long userId);
+
+    UUID getToken(String principal);
+
+    User findByToken(UUID token);
 }

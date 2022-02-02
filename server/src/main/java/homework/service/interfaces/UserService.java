@@ -4,6 +4,7 @@ import homework.domain.model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface UserService {
 
@@ -15,4 +16,7 @@ public interface UserService {
 
     List<User> findAllExcept(String principal);
 
+    UUID getToken(String principal);
+
+    User findByToken(UUID token);
 }

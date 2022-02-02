@@ -1,2 +1,5 @@
 tcp:
   port: 8082
+  host: localhost
+token: 353253ae-7d6b-4580-b123-b2ccee2c0073
+pth: C:\Users\Lenovo\Desktop\dir

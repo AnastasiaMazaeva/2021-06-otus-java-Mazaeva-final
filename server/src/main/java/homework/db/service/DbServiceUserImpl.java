@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,16 @@ public class DbServiceUserImpl implements DBServiceUser {
     @Override
     public void changeStatus(Long userId) {
         transactionManager.callInTransaction(() -> userRepository.changeStatus(userId));
+    }
+
+    @Override
+    public UUID getToken(String principal) {
+        return userRepository.getToken(principal);
+    }
+
+    @Override
+    public User findByToken(UUID token) {
+        return userRepository.findByToken(token).orElseThrow();
     }
 
 }
