@@ -31,6 +31,6 @@ public class DbServiceDocumentImpl implements DbServiceDocument {
 
     @Override
     public void delete(Long documentId) {
-        transactionManager.callInTransaction(() -> documentRepository.deleteById(documentId));
+        transactionManager.callInTransaction(() -> documentRepository.delete(documentId));
     }
 }

@@ -21,14 +21,6 @@ public class DocumentServiceImpl implements DocumentService {
     private final Storage storage;
 
     @Override
-    @Transactional(rollbackFor = {StorageException.class})
-    public void save(Document document, InputStream inputStream) {
-        Document savedDocument = service.save(document);
-        storage.upload(savedDocument.getId(), inputStream);
-        log.debug("document saved in minio : {}", savedDocument.getId());
-    }
-
-    @Override
     public InputStream download(Long documentId) {
         return storage.download(documentId);
     }
@@ -43,6 +35,13 @@ public class DocumentServiceImpl implements DocumentService {
     public void delete(Long documentId) {
         service.delete(documentId);
         storage.delete(documentId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = StorageException.class)
+    public void save(Document document, InputStream inputStream) {
+        Document savedDocument = service.save(document);
+        storage.upload(savedDocument.getId(), inputStream);
     }
 
 }

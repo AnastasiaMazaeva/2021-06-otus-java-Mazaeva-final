@@ -24,19 +24,18 @@ public class User {
     private Set<Permission> permissions = new HashSet<>();
 
     @PersistenceConstructor
-    public User(Long id, String login, String password, Role role) {
+    public User(Long id, String login, String password, Boolean isActive, Role role, Set<Document> documents, Set<Permission> permissions) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.isActive = isActive;
         this.role = role;
+        this.documents = documents;
+        this.permissions = permissions;
     }
 
     public User() {
 
     }
 
-    public User(String login, String password, Role role) {
-
-        this(null, login, password, role);
-    }
 }

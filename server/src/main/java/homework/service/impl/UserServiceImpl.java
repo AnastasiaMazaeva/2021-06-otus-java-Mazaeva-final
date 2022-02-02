@@ -6,6 +6,7 @@ import homework.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import storage.service.Storage;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final Storage storage;
     private final DBServiceUser service;
     private final PasswordEncoder passwordEncoder;
 
@@ -37,4 +39,5 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllExcept(String principal) {
         return service.findAllExcept(principal);
     }
+
 }

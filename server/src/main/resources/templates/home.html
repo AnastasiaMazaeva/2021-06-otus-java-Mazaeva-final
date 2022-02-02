@@ -54,7 +54,7 @@
                                 <td th:text="${document.name}"></td>
                                 <td th:text="${document.description}"></td>
                                 <td>
-                                    <form th:action="@{/documents/delete/{id}(id=${document.id})}" th:method="delete">
+                                    <form th:action="@{/documents/delete/{id}(id=${document.id})}" method="post" th:method="post">
                                         <button type="submit" class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
@@ -62,6 +62,16 @@
                             </tbody>
                         </table>
                     </div>
+                    <form method="post" th:action="@{/documents/upload}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>
+                                <input type="text" name="description">
+                                Description
+                            </label>
+                            <input type="file" name="file" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload File</button>
+                    </form>
                 </div>
                 <div class="users" style="width: 28%" id="users">
                     <h2 th:if="${users == null || #lists.isEmpty(users)}">No users yet!</h2>

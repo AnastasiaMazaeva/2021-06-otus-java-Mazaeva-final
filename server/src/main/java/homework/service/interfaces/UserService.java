@@ -14,4 +14,5 @@ public interface UserService {
     Optional<User> findByUsername(String username);
 
     List<User> findAllExcept(String principal);
+
 }

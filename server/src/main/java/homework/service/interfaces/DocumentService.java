@@ -6,11 +6,11 @@ import java.io.InputStream;
 
 public interface DocumentService {
 
-    void save(Document document, InputStream inputStream);
-
     InputStream download(Long documentId);
 
     Document findById(Long documentId);
 
     void delete(Long documentId);
+
+    void save(Document document, InputStream inputStream);
 }
