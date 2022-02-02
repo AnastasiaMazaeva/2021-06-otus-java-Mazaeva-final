@@ -1,5 +1,8 @@
 plugins {
     id 'java'
+    id 'io.franzbecker.gradle-lombok'
+    id 'io.spring.dependency-management'
+    id 'org.springframework.boot'
 }
 
 group 'org.example'
@@ -10,4 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-integration:2.6.3'
+    implementation 'org.springframework.integration:spring-integration-ip:5.5.8'
 }

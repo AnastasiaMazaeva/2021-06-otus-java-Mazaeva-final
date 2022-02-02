@@ -19,3 +19,5 @@ minio:
   key: rootuser
   secretkey: rootuser
   bucketname: docs
+tcp:
+  port: 8082
