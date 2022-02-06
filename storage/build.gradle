@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'io.franzbecker.gradle-lombok'
+}
+
+
+group 'ru.otus'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'io.minio:minio:7.1.4'
+}

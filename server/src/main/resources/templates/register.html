@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link th:href="@{/styles/style.css}" rel="stylesheet" />
+    <title>Your little library </title>
+</head>
+<body>
+
+<div class="form">
+    <div class="title">Welcome</div>
+    <div th:if="${param.error}" class="subtitle">Invalid username and password.</div>
+    <div th:if="${param.logout}" class="subtitle">
+        You have been logged out.
+    </div>
+    <form class="input-container ic1" id="login" th:action="@{/register}" th:object="${user}" method="post">
+        <div class="input-container ic1">
+            <input name="username" id="username" class="input" th:field="*{login}" type="text" placeholder=" " />
+            <div class="cut"></div>
+            <label for="username" class="placeholder">Username</label>
+        </div>
+        <div class="input-container ic2">
+            <input name="password" id="password" class="input" th:field="*{password}" type="password" placeholder=" " />
+            <div class="cut"></div>
+            <label for="password" class="placeholder">Password</label>
+        </div>
+        <input class="submit" type="submit" value="Register"/>
+    </form>
+</div>
+
+</body>
+</html>

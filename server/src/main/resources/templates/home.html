@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>documents</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <style type="text/css">
+        * {margin: 5px;}
+        #userId, #documentId, #permissionDocumentId {display: none}
+    </style>
+    <!--link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/table.js}"></script>
+</head>
+
+<body>
+<div class="welcome">
+<h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]!
+</h1>
+    <span><a href="/logout" th:href="@{/logout}">Logout?</a></span>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a href="/admin" th:href="@{/admin}">admin mode</a></div>
+    <div th:if="${#authorization.expression('hasRole(''USER'')')}">Ваш токен <span th:text="${token}"></span></div>
+</div>
+<div class="wrapper">
+    <input class="radio" id="one" name="group" type="radio" checked>
+    <input class="radio" id="two" name="group" type="radio">
+    <div class="tabs">
+        <label class="tab" id="one-tab" for="one">Documents</label>
+        <label class="tab" id="two-tab" for="two">Permissions</label>
+    </div>
+    <div class="panels">
+        <div class="panel" id="one-panel">
+            <div style="display:flex; flex-direction: row;">
+                <div class="documents" style="width: 70%" id="documents">
+                    <h2 th:if="${documents == null || #lists.isEmpty(documents)}">No documents yet!</h2>
+                    <div th:if="${documents != null && not #lists.isEmpty(documents)}">
+                        <table id="documentsTable" class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="document : ${documents}" style="cursor: pointer"
+                                th:parameterId="${document.id}"
+                                th:onclick="selectDocument(this)">
+                                <td id="documentId" th:text="${document.id}"></td>
+                                <td th:text="${document.name}"></td>
+                                <td th:text="${document.description}"></td>
+                                <td>
+                                    <form th:action="@{/documents/delete/{id}(id=${document.id})}" method="post" th:method="post">
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <form method="post" th:action="@{/documents/upload}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>
+                                <input type="text" name="description">
+                                Description
+                            </label>
+                            <input type="file" name="file" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload File</button>
+                    </form>
+                </div>
+                <div class="users" style="width: 28%" id="users">
+                    <h2 th:if="${users == null || #lists.isEmpty(users)}">No users yet!</h2>
+                    <div th:if="${users != null && not #lists.isEmpty(users)}">
+                        <table id="usersTable" class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Share</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}" >
+                                <td id="userId" th:text="${user.id}"></td>
+                                <td th:text="${user.login}"></td>
+                                <td><button type="submit" th:parameterId="${user.id}" onclick="share(this)" class="btn btn-primary" id="share"><i class="fas fa-share"></i></button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="two-panel">
+            <div class="permissions" id="permissions">
+                <h2 th:if="${permissions == null || #lists.isEmpty(permissions)}">No documents for you!</h2>
+                <div th:if="${permissions != null && not #lists.isEmpty(permissions)}">
+                    <table id="permissionsTable" class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Owner</th>
+                            <th>Document</th>
+                            <th>Description</th>
+                            <th>Download</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="permission : ${permissions}">
+                            <td id="permissionDocumentId" th:text="${permission.documentId}"></td>
+                            <td th:text="${permission.ownerName}"></td>
+                            <td th:text="${permission.documentName}"></td>
+                            <td th:text="${permission.documentDescription}"></td>
+                            <td><a th:href="@{/documents/download/{documentId}(documentId=${permission.documentId})}" class="btn btn-primary"><i class="fas fa-download"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

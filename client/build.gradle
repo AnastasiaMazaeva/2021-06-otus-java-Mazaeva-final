@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok'
+    id 'io.spring.dependency-management'
+    id 'org.springframework.boot'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'org.springframework.boot:spring-boot-starter'
+}

@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5430/demoDB
+    username: usr
+    password: pwd
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+server:
+  port: 8081
+logging:
+  level:
+    log4j.category.org.springframework.jdbc.core : TRACE
+minio:
+  url: http://localhost:9000
+  key: rootuser
+  secretkey: rootuser
+  bucketname: docs
+tcp:
+  port: 8082
