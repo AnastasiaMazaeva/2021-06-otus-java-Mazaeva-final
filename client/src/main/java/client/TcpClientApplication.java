@@ -1,25 +1,18 @@
 package client;
 
 
-import client.properties.TcpProperties;
+import client.properties.ClientProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+
+import java.io.IOException;
 
 @Slf4j
-@ConfigurationPropertiesScan
-@SpringBootApplication
 public class TcpClientApplication {
 
-    public static void main(String[] args) {
-        var ctx = SpringApplication.run(TcpClientApplication.class, args);
-        String path = ctx.getEnvironment().getProperty("pth");
-        String token = ctx.getEnvironment().getProperty("token");
-        TcpProperties properties = ctx.getBean(TcpProperties.class);
-        ClientSocket clientSocket = new ClientSocket(token);
-        clientSocket.go(path, properties);
-        ctx.close();
+    public static void main(String[] args) throws IOException {
+        ClientProperties properties = new ClientProperties();
+        GrpcClient client = new GrpcClient(properties, "C:\\Users\\Lenovo\\Desktop\\patterns\\superimportant.txt");
+        client.go();
     }
 
 }

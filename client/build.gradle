@@ -1,8 +1,9 @@
 plugins {
     id 'java'
     id 'io.franzbecker.gradle-lombok'
-    id 'io.spring.dependency-management'
-    id 'org.springframework.boot'
+    id 'com.github.johnrengelman.shadow'
+
+    id 'com.google.protobuf' version '0.8.16'
 }
 
 group 'org.example'
@@ -15,5 +16,60 @@ repositories {
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation 'ch.qos.logback:logback-classic'
+
+    implementation "io.grpc:grpc-protobuf:1.42.0"
+    implementation "io.grpc:grpc-stub:1.42.0"
+
+    implementation 'io.grpc:grpc-netty:1.42.0'
+    implementation 'com.google.protobuf:protobuf-java:3.17.2'
+
+    implementation "org.apache.tomcat:annotations-api:6.0.53"
 }
+
+
+shadowJar {
+    archiveBaseName.set('Client')
+    archiveVersion.set('0.1')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'client.TcpClientApplication'
+    }
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+
+sourceSets {
+    src {
+        main {
+            java {
+                srcDirs 'build/generated/source/proto/main/grpc'
+                srcDirs 'build/generated/source/proto/main/java'
+            }
+
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.12.1'
+    }
+
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.30.2'
+
+        }
+    }
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+test {}

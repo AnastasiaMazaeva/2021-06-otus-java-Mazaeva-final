@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -23,12 +24,10 @@ public class IntegrationServiceImpl implements IntegrationService {
     private final UserService userService;
 
     @Override
-    public void handleIncome(Model[] models) {
-        for (Model model : models) {
-            User user = userService.findByToken(model.getToken());
-            log.info("User found {}", user.getLogin());
-            InputStream inputStream = new ByteArrayInputStream(Base64.decodeBase64(model.getBody()));
-            documentService.save(new Document(model.getFilename(), null, user.getId()), inputStream);
-        }
+    public void handleIncome(String token, String filename, byte[] bytes) {
+        User user = userService.findByToken(UUID.fromString(token));
+        log.info("User found {}", user.getLogin());
+        InputStream inputStream = new ByteArrayInputStream(bytes);
+        documentService.save(new Document(filename, null, user.getId()), inputStream);
     }
 }

@@ -1,0 +1,29 @@
+
+syntax = "proto3";
+
+message UploadDocumentRequest {
+    oneof data {
+        DocumentInfo info = 1;
+        bytes chunk = 2;
+    };
+}
+
+message DocumentInfo {
+    string token = 1;
+    string filename = 2;
+}
+
+message UploadDocumentResponse {
+    Status status = 1;
+}
+
+enum Status {
+    PENDING = 0;
+    IN_PROGRESS = 1;
+    SUCCESS = 2;
+    FAILED = 3;
+}
+
+service DocumentService {
+    rpc upload(stream UploadDocumentRequest) returns (UploadDocumentResponse) {};
+}

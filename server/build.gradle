@@ -3,14 +3,16 @@ plugins {
     id 'io.franzbecker.gradle-lombok'
     id 'io.spring.dependency-management'
     id 'org.springframework.boot'
+
+    id 'com.google.protobuf' version '0.8.16'
 }
 
-group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation project(":storage")
@@ -26,17 +28,52 @@ dependencies {
     implementation 'org.webjars:webjars-locator-core'
     implementation 'org.webjars:jquery'
     implementation 'org.webjars:webjars-locator-core'
-    implementation 'org.mapstruct:mapstruct'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
 
     implementation 'org.postgresql:postgresql'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-    implementation 'org.springframework.boot:spring-boot-starter-integration:2.6.3'
-    implementation 'org.springframework.integration:spring-integration-ip:5.5.8'
 
+    implementation "io.grpc:grpc-protobuf:1.42.0"
+    implementation "io.grpc:grpc-stub:1.42.0"
 
+    implementation 'io.grpc:grpc-netty:1.42.0'
+    implementation 'com.google.protobuf:protobuf-java:3.17.2'
+
+    implementation "org.apache.tomcat:annotations-api:6.0.53"
 }
+
+
+sourceSets {
+    src {
+        main {
+            java {
+                srcDirs 'build/generated/source/proto/main/grpc'
+                srcDirs 'build/generated/source/proto/main/java'
+            }
+
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.12.1'
+    }
+
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.30.2'
+
+        }
+    }
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+test {}

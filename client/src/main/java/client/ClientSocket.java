@@ -1,7 +1,7 @@
 package client;
 
 import client.model.Model;
-import client.properties.TcpProperties;
+import client.properties.ClientProperties;
 import client.utils.FileUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +24,12 @@ public class ClientSocket {
         this.token = token;
     }
 
-    public void go(String directory, TcpProperties tcpProperties) {
+    public void go(ClientProperties clientProperties) {
         try {
-            try (Socket clientSocket = new Socket(tcpProperties.getHost(), tcpProperties.getPort())) {
+            try (Socket clientSocket = new Socket(clientProperties.getHost(), clientProperties.getPort())) {
                 PrintWriter outputStream = new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                Path path = Paths.get(directory);
+                Path path = Paths.get(clientProperties.getPath());
                 List<Model> models = FileUtils.handle(token, path);
                 log.debug("{}", models);
                 if (!models.isEmpty()) {
