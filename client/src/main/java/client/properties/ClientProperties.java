@@ -15,7 +15,7 @@ public class ClientProperties {
     private String path;
 
     public ClientProperties() throws IOException {
-        try (FileInputStream iis = new FileInputStream("D:\\projects\\2021-06-otus-java-Mazaeva-final\\client\\src\\main\\resources\\application.properties")) {
+        try (FileInputStream iis = new FileInputStream("./application.properties")) {
             Properties properties = new Properties();
             properties.load(iis);
             this.host = properties.getProperty("tcp.host");

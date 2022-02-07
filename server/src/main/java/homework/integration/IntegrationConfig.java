@@ -18,13 +18,13 @@ public class IntegrationConfig {
     private final TcpProperties properties;
     private final IntegrationService integrationService;
 
-    @Bean(initMethod = "awaitTermination", destroyMethod = "shutdown")
+    @Bean(initMethod = "start", destroyMethod = "shutdown")
     public Server server() throws IOException {
         Server server = ServerBuilder
                 .forPort(properties.getPort())
-                .addService(new DocumentServiceImplBaseImpl(integrationService))
+                .addService(new DocumentService(integrationService))
                 .build();
-        server.start();
+        //server.start();
         return server;
     }
 

@@ -11,7 +11,7 @@ public class TcpClientApplication {
 
     public static void main(String[] args) throws IOException {
         ClientProperties properties = new ClientProperties();
-        GrpcClient client = new GrpcClient(properties, "C:\\Users\\Lenovo\\Desktop\\patterns\\superimportant.txt");
+        GrpcClient client = new GrpcClient(properties);
         client.go();
     }
 

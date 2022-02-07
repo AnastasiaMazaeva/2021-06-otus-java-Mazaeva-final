@@ -1,6 +1,6 @@
 
 syntax = "proto3";
-
+package client;
 message UploadDocumentRequest {
     oneof data {
         DocumentInfo info = 1;

@@ -1,6 +1,7 @@
 
 syntax = "proto3";
-
+option java_package = "client";
+package client;
 message UploadDocumentRequest {
     oneof data {
         DocumentInfo info = 1;
